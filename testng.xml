@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="OfferCloud Test Suite">
+
+	<!-- <listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+	</listeners> -->
+
+	<parameter name="user" value="beta.offercloud" />
+	<parameter name="password" value="test" />
+	<parameter name="testUrl" value="offercloud.73robots.com" />
+
+	<test verbose="2" name="OfferCloud Tests">
+
+		<classes>
+			<class name="com.offercloud.selenium.tests.SampleSeleniumTest" />
+
+		</classes>
+	</test>
+
+</suite>

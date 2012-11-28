@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="runTestNG" name="Ant file for TestNG">
+
+	<property name="libDir" location="lib" />
+	<property name="buildDir" location="bin" />
+	<property name="sourceDir" location="src" />
+	<property name="testng.output.dir" value="test-output" />
+
+
+	<path id="master-classpath">
+		<fileset dir="${libDir}">
+			<include name="*.jar">
+			</include>
+		</fileset>
+		<pathelement path="${buildDir}">
+		</pathelement>
+	</path>
+
+
+	<taskdef name="testng" classname="org.testng.TestNGAntTask">
+		<classpath>
+			<pathelement location="lib/testng-6.8.jar" />
+		</classpath>
+	</taskdef>
+
+	<target name="clean" description="Remove the build and report directories">
+
+		<delete dir="${testng.output.dir}" />
+	</target>
+
+	<path id="classes">
+		<pathelement location="bin" />
+	</path>
+
+	<!--
+  Target to run TestNG. It will run according to what are defined in testng.xml.
+  The report will be saved at .../testng_output/index.html.  
+  -->
+	<target name="runTestNG" depends="clean">
+
+		<mkdir dir="${testng.output.dir}" />
+		<!-- Create the output directory. -->
+		<testng classpathref="master-classpath" outputdir="${testng.output.dir}" haltonfailure="true" useDefaultListeners="false" listeners="org.uncommons.reportng.HTMLReporter">
+			<xmlfileset dir="." includes="testng.xml" />
+			<sysproperty key="org.uncommons.reportng.title" value="OfferCloud Selenium Test Report" />
+		</testng>
+
+	</target>
+
+</project>
