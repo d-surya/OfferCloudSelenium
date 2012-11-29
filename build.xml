@@ -25,10 +25,19 @@
 	</taskdef>
 
 	<target name="clean" description="Remove the build and report directories">
-
+		<delete dir="${buildDir}" />
 		<delete dir="${testng.output.dir}" />
 	</target>
 
+	<target name="build" description="Creates a build of the test suite.">
+		<echo>"Making directory ${buildDir}"</echo>
+		<mkdir dir="${buildDir}" />
+		<echo>"Doing build..."</echo>
+		<javac includeantruntime="false" destdir="${buildDir}" debug="true" deprecation="false" failonerror="true">
+			<src path="${sourceDir}" />
+			<classpath refid="master-classpath" />
+		</javac>
+	</target>
 	<path id="classes">
 		<pathelement location="bin" />
 	</path>
@@ -37,7 +46,7 @@
   Target to run TestNG. It will run according to what are defined in testng.xml.
   The report will be saved at .../testng_output/index.html.  
   -->
-	<target name="runTestNG" depends="clean">
+	<target name="runTestNG" depends="clean,build">
 
 		<mkdir dir="${testng.output.dir}" />
 		<!-- Create the output directory. -->
